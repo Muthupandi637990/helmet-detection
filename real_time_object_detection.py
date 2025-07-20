@@ -9,7 +9,6 @@ import argparse
 import imutils
 import time
 import cv2
-from playsound import playsound
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -38,8 +37,8 @@ args = vars(ap.parse_args())
 # Each prediction composes of a boundary box and 21 scores for each class (one extra class for no object),
 # and we pick the highest score as the class for the bounded object
 CLASSES = ["aeroplane", "background", "bicycle", "bird", "boat",
-           "person with helmet", "bus", "car", "cat", "paper", "cow", "diningtable",
-           "dog", "horse", "motorbike", "person without helmet", "pottedplant", "sheep",
+           "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
+           "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
            "sofa", "train", "tvmonitor"]
 
 # Assigning random colors to each of the classes
@@ -141,10 +140,6 @@ while True:
 			# Get the label with the confidence score
 			label = "{}: {:.2f}%".format(CLASSES[idx], confidence * 100)
 			print("Object detected: ", label)
-			if label[:14] == "person without":
-				print("person without helmet")
-				playsound("error.mp3")
-			
 			# Draw a rectangle across the boundary of the object
 			cv2.rectangle(frame, (startX, startY), (endX, endY),
 				COLORS[idx], 2)
